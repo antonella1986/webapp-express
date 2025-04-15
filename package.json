@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon --dev --env-file.env index.js"
+    "start": "node server.js",
+    "dev": "node --watch --env-file.env server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -16,7 +16,7 @@ function show(req, res) {
 
     connection.query(sql, [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
-        if(results.lenght === 0) return res.status(404).json({ message: 'Movie not found' });
+        if(results.length === 0) return res.status(404).json({ message: 'Movie not found' });
 
         const movie = results[0]
         connection.query(sqlReviews, [id], (err, reviews) => {

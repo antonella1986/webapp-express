@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const moviesRouter = require('./routes/movies.js');
 const serverError = require('./middleware/serverError');
 const notFound = require('./middleware/notFound');
 
@@ -28,6 +29,8 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
     res.send('Movies API server running');
 })
+
+app.use('/movies', moviesRouter);
 
 //middleware for server errors
 app.use(serverError)

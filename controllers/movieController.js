@@ -29,4 +29,27 @@ function show(req, res) {
     })
 }
 
-module.exports = { index, show }
+function post(req, res) {
+    const movieId = req.params.id;
+    const { username, title, review, vote } = req.body;
+
+    if (!username || !title || !review || !vote) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const newReview = {
+        //genero un id univoco
+        id: Date.now(),
+        movieId, //associo la recensione al film
+        username,
+        title,
+        review,
+        vote,
+    };
+
+    //salvo la recensione nel db
+    reviews.push(newReview);
+    res.status(201).json(newReview);
+};
+
+module.exports = { index, show, post }

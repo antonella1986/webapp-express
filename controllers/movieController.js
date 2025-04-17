@@ -30,26 +30,19 @@ function show(req, res) {
 }
 
 function post(req, res) {
-    const movieId = req.params.id;
-    const { username, title, review, vote } = req.body;
+    const movie_id = req.params.id;
+    const { name, text, vote } = req.body;
 
-    if (!username || !title || !review || !vote) {
+    if (!name || !text || !vote) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
-    const newReview = {
-        //genero un id univoco
-        id: Date.now(),
-        movieId, //associo la recensione al film
-        username,
-        title,
-        review,
-        vote,
-    };
-
-    //salvo la recensione nel db
-    reviews.push(newReview);
-    res.status(201).json(newReview);
+    const sqlNewReview = 'INSERT INTO reviews (movie_id, name, text, vote) VALUES (?, ?, ?, ?)';
+    connection.query(sqlNewReview, [movie_id, name, text, vote], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        console.log(results);
+        res.json(results);
+    })
 };
 
 module.exports = { index, show, post }

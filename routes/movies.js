@@ -8,6 +8,6 @@ router.get('/', movieController.index);
 router.get('/:id', movieController.show);
 
 //post
-router.post('/movies/:id/reviews', movieController.post);
+router.post('/:id/reviews', movieController.post);
 
 module.exports = router
